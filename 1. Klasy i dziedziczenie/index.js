@@ -268,10 +268,23 @@ class ComputerGarage {
       `There are ${computerQuantity} computers, ${superComputerQuantity} super computers, and ${cryptoMinerStationQuantity} crypto miner stations`
     );
   }
+
+  addToGarage(item) {
+    if (item instanceof Computer) {
+      this.Computers.push(item);
+      return;
+    }
+
+    if (item instanceof SuperComputer) {
+      this.Computers.push(item);
+      return;
+    }
+
+    if (item instanceof CryptoMinerStation) {
+      this.Computers.push(item);
+      return;
+    }
+
+    throw new error("Object does not fit in this garage!");
+  }
 }
-
-const garag = new ComputerGarage();
-garag.addComputer(1, 1, 1, 1, 1);
-garag.addComputer(2, 2, 2, 2, 2);
-
-garag.garageInfo();
