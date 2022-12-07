@@ -32,27 +32,35 @@ class Fish {
   }
 
   get age() {
-    return this.age;
+    return this._age;
   }
 
   get hungerLevel() {
-    return this.hungerLevel;
+    return this._hungerLevel;
   }
 
   get isIll() {
-    return this.isIll;
+    return this._isIll;
   }
 
   set age(x) {
-    this.age = x;
+    this._age = x;
   }
 
   set hungerLevel(x) {
-    this.hungerLevel = x;
+    this._hungerLevel = x;
+  }
+
+  set isIll(x) {
+    if (typeof x === "boolean") {
+      this._isIll = x;
+      return;
+    }
+    throw new error("You can use only true or false");
   }
 
   toggleIll() {
-    this.isIll = !this.isIll;
+    this._isIll = !this.isIll;
   }
 }
 
@@ -99,3 +107,101 @@ class Shrimp extends Fish {
     this.isFiltering = !this.isFiltering;
   }
 }
+
+// ZADANIE 6
+class Akwarium {
+  constructor() {
+    this.fishes = [];
+    this.fillLevel;
+  }
+
+  addFish(fish) {
+    this.fishes.push(fish);
+  }
+
+  nakarm() {
+    this.fishes.forEach((fish) => (fish.hungerLevel = 100));
+  }
+
+  isSomeHungry() {
+    this.fishes.forEach((fish) => {
+      if (fish.hungerLevel < 50) {
+        let currentFish = this.fishes.indexOf(fish) + 1;
+        console.log(`Fish nr ${currentFish} is hungry`);
+      }
+    });
+  }
+
+  isSomeIll() {
+    this.fishes.forEach((fish) => {
+      if (fish.isIll) {
+        let currentFish = this.fishes.indexOf(fish) + 1;
+        console.log(`Fish nr ${currentFish} is ill`);
+      }
+    });
+  }
+
+  fill(level) {
+    if (level < 0 || level > 100) {
+      throw new error("Level must be between 0 and 100!");
+    }
+    this.fillLevel = level;
+  }
+
+  action() {
+    this.fishes.forEach((fish) => {
+      if (fish instanceof Gupik && Math.random > 0.5) {
+        fish.toggleSleep();
+      }
+
+      if (fish instanceof Shrimp && Math.random > 0.5) {
+        fish.toggleFiltering();
+      }
+    });
+  }
+
+  info() {
+    this.fishes.forEach((fish) => {
+      if (fish instanceof Gupik) {
+        console.log(
+          `Gupik, age ${fish.age}, hunger level ${fish.hungerLevel}, ${
+            fish.isIll ? "ill" : "not ill"
+          }, ${fish.isSleep ? "asleep" : "awake"}`
+        );
+      }
+
+      if (fish instanceof Shrimp) {
+        console.log(
+          `Shrimp, age ${fish.age}, hunger level ${fish.hungerLevel}, ${
+            fish.isIll ? "ill" : "not ill"
+          }, ${fish.isFiltering ? "filtering" : "not filtering"}`
+        );
+      }
+    });
+  }
+
+  wyslijNaKwarantanne(x) {
+    Kwarantanna.addFish(x);
+  }
+}
+
+class Kwarantanna extends Akwarium {
+  constructor() {
+    super();
+  }
+
+  zwroc(x) {
+    super.addFish(x);
+  }
+}
+
+const one = new Gupik(1, 1, false, true);
+const two = new Shrimp(1, 90, true, false);
+const akwar = new Akwarium();
+akwar.addFish(one);
+akwar.addFish(two);
+akwar.info();
+
+const kwar = new Kwarantanna();
+akwar.wyslijNaKwarantanne(akwar.fishes[0]);
+akwar.info();
