@@ -259,10 +259,19 @@ class ComputerGarage {
 
     throw new error("Wrong array name!");
   }
+
+  garageInfo() {
+    const computerQuantity = this.Computers.length;
+    const superComputerQuantity = this.SuperComputers.length;
+    const cryptoMinerStationQuantity = this.CryptoMinerStations.length;
+    console.log(
+      `There are ${computerQuantity} computers, ${superComputerQuantity} super computers, and ${cryptoMinerStationQuantity} crypto miner stations`
+    );
+  }
 }
 
 const garag = new ComputerGarage();
 garag.addComputer(1, 1, 1, 1, 1);
 garag.addComputer(2, 2, 2, 2, 2);
 
-garag.info("Computers");
+garag.garageInfo();
