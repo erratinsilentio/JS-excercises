@@ -56,10 +56,13 @@ class Computer {
     this._gpu = x;
   }
 
-  info() {
-    console.log(
-      `Komputer o mocy zasilacza ${this._mocZasilacza}W, prędkości procesora ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i GPU równym ${this._gpu}Ghz`
-    );
+  info(print) {
+    const info = `Komputer o mocy zasilacza ${this._mocZasilacza}W, prędkości procesora ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i GPU równym ${this._gpu}Ghz`;
+    if (print) {
+      console.log(info);
+      return;
+    }
+    return info;
   }
 
   calculateProcessorsPower() {
@@ -91,10 +94,13 @@ class SuperComputer extends Computer {
     this._iloscProcesorow = x;
   }
 
-  info() {
-    console.log(
-      `Komputer o mocy zasilacza ${this._mocZasilacza}W, ilości procesorów równej ${this._iloscProcesorow} i prędkości ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i GPU równym ${this._gpu}Ghz`
-    );
+  info(print) {
+    const info = `Komputer o mocy zasilacza ${this._mocZasilacza}W, ilości procesorów równej ${this._iloscProcesorow} i prędkości ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i GPU równym ${this._gpu}Ghz`;
+    if (print) {
+      console.log(info);
+      return;
+    }
+    return info;
   }
 
   calculateProcessorsPower() {
@@ -135,10 +141,13 @@ class CryptoMinerStation extends Computer {
     this._iloscGpu = x;
   }
 
-  info() {
-    console.log(
-      `Komputer o mocy zasilacza ${this._mocZasilacza}W, prędkości procesora ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i ilości GPU równej ${this._iloscGpu} i ${this._gpu}Ghz`
-    );
+  info(print) {
+    const info = `Komputer o mocy zasilacza ${this._mocZasilacza}W, prędkości procesora ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i ilości GPU równej ${this._iloscGpu} i ${this._gpu}Ghz`;
+    if (print) {
+      console.log(info);
+      return;
+    }
+    return info;
   }
 
   calculateProcessorsPower() {
@@ -151,3 +160,109 @@ class CryptoMinerStation extends Computer {
     return time * cost * this.calculateProcessorsPower();
   }
 }
+
+class ComputerGarage {
+  constructor() {
+    this.Computers = [];
+    this.SuperComputers = [];
+    this.CryptoMinerStations = [];
+  }
+
+  addComputer(mocZasilacza, predkoscProcesora, iloscRdzeni, plytaGlowna, gpu) {
+    this.Computers.push(
+      new Computer(
+        mocZasilacza,
+        predkoscProcesora,
+        iloscRdzeni,
+        plytaGlowna,
+        gpu
+      )
+    );
+  }
+
+  addSuperComputer(
+    mocZasilacza,
+    predkoscProcesora,
+    iloscProcesorow,
+    iloscRdzeni,
+    plytaGlowna,
+    gpu
+  ) {
+    this.SuperComputers.push(
+      new SuperComputer(
+        mocZasilacza,
+        predkoscProcesora,
+        iloscProcesorow,
+        iloscRdzeni,
+        plytaGlowna,
+        gpu
+      )
+    );
+  }
+
+  addCryptoMinerStation(
+    mocZasilacza,
+    predkoscProcesora,
+    iloscRdzeni,
+    plytaGlowna,
+    gpu,
+    iloscGpu
+  ) {
+    this.CryptoMinerStations.push(
+      new CryptoMinerStation(
+        mocZasilacza,
+        predkoscProcesora,
+        iloscRdzeni,
+        plytaGlowna,
+        gpu,
+        iloscGpu
+      )
+    );
+  }
+
+  info(arr) {
+    if (arr === "Computers") {
+      if (!this.Computers.length) {
+        console.log("no computers:(");
+        return;
+      }
+
+      this.Computers.map((item) => {
+        console.log(this.Computers.indexOf(item) + 1 + ". " + item.info());
+      });
+      return;
+    }
+
+    if (arr === "SuperComputers") {
+      if (!this.SuperComputers.length) {
+        console.log("no super computers:(");
+        return;
+      }
+      this.SuperComputers.map((item) => {
+        console.log(this.SuperComputers.indexOf(item) + 1 + ". " + item.info());
+      });
+      return;
+    }
+
+    if (arr === "CryptoMinerStations" && this.CryptoMinerStations.length) {
+      if (!this.CryptoMinerStations.length) {
+        console.log("no crypto miner stations:(");
+        return;
+      }
+      this.CryptoMinerStations.map((item) => {
+        console.log(
+          this.CryptoMinerStations.indexOf(item) + 1 + ". " + item.info()
+        );
+      });
+      return;
+    }
+
+    throw new error("Wrong array name!");
+  }
+}
+
+const garag = new ComputerGarage();
+garag.addComputer(1, 1, 1, 1, 1);
+garag.addComputer(2, 2, 2, 2, 2);
+
+garag.info("Computers");
