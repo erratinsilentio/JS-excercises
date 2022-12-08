@@ -26,6 +26,12 @@ class Fish {
         "One of the variables has wrong type! Use (number, number, boolean)"
       );
     }
+    if (age < 0) {
+      throw new error("Age has to be above 0!");
+    }
+    if (hungerLevel <= 0) {
+      throw new error("Hunger level has to be minimum 0!");
+    }
     this.age = age;
     this.hungerLevel = hungerLevel;
     this.isIll = isIll;
@@ -44,19 +50,24 @@ class Fish {
   }
 
   set age(x) {
+    if (typeof x != "number" && x <= 0) {
+      throw new error("Age has to be a positive number!");
+    }
     this._age = x;
   }
 
   set hungerLevel(x) {
+    if (typeof x != "number" && x < 0) {
+      throw new error("Hunger level has to be a number - minimum 0!");
+    }
     this._hungerLevel = x;
   }
 
   set isIll(x) {
-    if (typeof x === "boolean") {
-      this._isIll = x;
-      return;
+    if (typeof x != "boolean") {
+      throw new error("You can use only true or false");
     }
-    throw new error("You can use only true or false");
+    this._isIll = x;
   }
 
   toggleIll() {
@@ -77,8 +88,24 @@ class Gupik extends Fish {
         "One of the variables has wrong type! Use (number, number, boolean, boolean)"
       );
     }
+    if (age < 0) {
+      throw new error("Age has to be above 0!");
+    }
+    if (hungerLevel <= 0) {
+      throw new error("Hunger level has to be minimum 0!");
+    }
     super(age, hungerLevel, isIll);
     this.isSleep = isSleep;
+  }
+
+  get isSleep() {
+    return this._isSleep;
+  }
+  set isSleep(x) {
+    if (typeof x != "boolean") {
+      throw new error("You can use only true or false!");
+    }
+    this._isSleep = x;
   }
 
   toggleSleep() {
@@ -99,8 +126,24 @@ class Shrimp extends Fish {
         "One of the variables has wrong type! Use (number, number, boolean, boolean)"
       );
     }
+    if (age < 0) {
+      throw new error("Age has to be above 0!");
+    }
+    if (hungerLevel <= 0) {
+      throw new error("Hunger level has to be minimum 0!");
+    }
     super(age, hungerLevel, isIll);
     this.isFiltering = isFiltering;
+  }
+
+  get isFiltering() {
+    return this._isFiltering;
+  }
+  set isFiltering(x) {
+    if (typeof x != "boolean") {
+      throw new error("Use boolean - true or false!");
+    }
+    this._isFiltering = x;
   }
 
   toggleFiltering() {
@@ -116,7 +159,11 @@ class Akwarium {
   }
 
   addFish(fish) {
-    this.fishes.push(fish);
+    if (fish instanceof Fish) {
+      this.fishes.push(fish);
+      return;
+    }
+    throw new error("Variable has to be an instance of Fish Class!");
   }
 
   nakarm() {
@@ -182,7 +229,7 @@ class Akwarium {
 
   wyslijNaKwarantanne(kwarantanna, rybka) {
     // sprawdz czy y to kwarantanna i x to rybka
-    if (!(kwarantanna instanceof Kwarantanna && rybka instanceof Fish)) {
+    if (!(kwarantanna instanceof Kwarantanna || rybka instanceof Fish)) {
       throw new error("Give (kwarantanna, rybka)");
     }
     // Dodaj rybkę do wskazanej kwarantanny
