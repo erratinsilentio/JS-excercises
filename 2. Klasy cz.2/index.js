@@ -180,8 +180,9 @@ class Akwarium {
     });
   }
 
-  wyslijNaKwarantanne(x) {
-    Kwarantanna.addFish(x);
+  wyslijNaKwarantanne(y, x) {
+    y.addFish(x);
+    //usuń rybke z tablicy
   }
 }
 
@@ -203,5 +204,5 @@ akwar.addFish(two);
 akwar.info();
 
 const kwar = new Kwarantanna();
-akwar.wyslijNaKwarantanne(akwar.fishes[0]);
+akwar.wyslijNaKwarantanne(kwar, akwar.fishes[0]);
 akwar.info();
