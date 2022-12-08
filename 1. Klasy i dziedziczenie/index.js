@@ -70,7 +70,7 @@ export class Computer {
   }
 }
 
-class SuperComputer extends Computer {
+export class SuperComputer extends Computer {
   constructor(
     mocZasilacza,
     predkoscProcesora,
@@ -117,7 +117,7 @@ class SuperComputer extends Computer {
   }
 }
 
-class CryptoMinerStation extends Computer {
+export class CryptoMinerStation extends Computer {
   constructor(
     mocZasilacza,
     predkoscProcesora,
@@ -134,7 +134,7 @@ class CryptoMinerStation extends Computer {
   }
 
   get iloscGpu() {
-    return this.iloscGpu;
+    return this._iloscGpu;
   }
 
   set iloscGpu(x) {
@@ -161,7 +161,7 @@ class CryptoMinerStation extends Computer {
   }
 }
 
-class ComputerGarage {
+export class ComputerGarage {
   constructor() {
     this.Computers = [];
     this.SuperComputers = [];
