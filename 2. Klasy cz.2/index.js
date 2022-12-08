@@ -180,9 +180,18 @@ class Akwarium {
     });
   }
 
-  wyslijNaKwarantanne(y, x) {
-    y.addFish(x);
-    //usuń rybke z tablicy
+  wyslijNaKwarantanne(kwarantanna, rybka) {
+    // sprawdz czy y to kwarantanna i x to rybka
+    if (!(kwarantanna instanceof Kwarantanna && rybka instanceof Fish)) {
+      throw new error("Give (kwarantanna, rybka)");
+    }
+    // Dodaj rybkę do wskazanej kwarantanny
+    kwarantanna.addFish(rybka);
+    // Uaktualnij obecną tablicę rybek
+    this.fishes = this.fishes.map((fish) => {
+      if (fish === rybka) return null;
+      return fish;
+    });
   }
 }
 
@@ -192,17 +201,13 @@ class Kwarantanna extends Akwarium {
   }
 
   zwroc(x) {
+    if (!(x instanceof Fish)) {
+      throw new error("You must give a fish!");
+    }
     super.addFish(x);
+    this.fishes = this.fishes.map((fish) => {
+      if (fish === x) return null;
+      return fish;
+    });
   }
 }
-
-const one = new Gupik(1, 1, false, true);
-const two = new Shrimp(1, 90, true, false);
-const akwar = new Akwarium();
-akwar.addFish(one);
-akwar.addFish(two);
-akwar.info();
-
-const kwar = new Kwarantanna();
-akwar.wyslijNaKwarantanne(kwar, akwar.fishes[0]);
-akwar.info();
