@@ -1,4 +1,6 @@
 export class Computer {
+  #mocZasilacza;
+
   constructor(mocZasilacza, predkoscProcesora, iloscRdzeni, plytaGlowna, gpu) {
     if (
       mocZasilacza <= 0 ||
@@ -15,9 +17,8 @@ export class Computer {
     this.plytaGlowna = plytaGlowna;
     this.gpu = gpu;
   }
-
   get mocZasilacza() {
-    return this._mocZasilacza;
+    return this.mocZasilacza;
   }
 
   get predkoscProcesora() {
@@ -37,7 +38,9 @@ export class Computer {
   }
 
   set mocZasilacza(x) {
-    this._mocZasilacza = x;
+    if (x > 0) {
+      this.#mocZasilacza = x;
+    }
   }
 
   set predkoscProcesora(x) {
@@ -57,7 +60,13 @@ export class Computer {
   }
 
   info(print) {
-    const info = `Komputer o mocy zasilacza ${this._mocZasilacza}W, prędkości procesora ${this._predkoscProcesora}Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${this._plytaGlowna}, i GPU równym ${this._gpu}Ghz`;
+    const info = `Komputer o mocy zasilacza ${
+      this.#mocZasilacza
+    }W, prędkości procesora ${
+      this._predkoscProcesora
+    }Ghz, ilości rdzeni równej ${this._iloscRdzeni}, płycie głównej ${
+      this._plytaGlowna
+    }, i GPU równym ${this._gpu}Ghz`;
     if (print) {
       console.log(info);
       return;
@@ -227,8 +236,8 @@ export class ComputerGarage {
         return;
       }
 
-      this.Computers.map((item) => {
-        console.log(this.Computers.indexOf(item) + 1 + ". " + item.info());
+      this.Computers.forEach((item, index) => {
+        console.log(index + 1 + ". " + item.info());
       });
       return;
     }

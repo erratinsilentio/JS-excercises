@@ -1,9 +1,9 @@
-const {
+import {
   Computer,
   SuperComputer,
   CryptoMinerStation,
   ComputerGarage,
-} = require("./index");
+} from "./index";
 
 describe("Computer", () => {
   let computer;

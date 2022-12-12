@@ -5,8 +5,7 @@ String.prototype.upperFirst = function () {
 
 // ZADANIE 2
 Number.prototype.isOdd = function () {
-  if (this % 2 === 0) return true;
-  return false;
+  return this % 2 === 0;
 };
 
 Number.prototype.isEven = function () {
@@ -171,10 +170,9 @@ class Akwarium {
   }
 
   isSomeHungry() {
-    this.fishes.forEach((fish) => {
+    this.fishes.forEach((fish, index) => {
       if (fish.hungerLevel < 50) {
-        let currentFish = this.fishes.indexOf(fish) + 1;
-        console.log(`Fish nr ${currentFish} is hungry`);
+        console.log(`Fish nr ${index + 1} is hungry`);
       }
     });
   }
@@ -247,14 +245,17 @@ class Kwarantanna extends Akwarium {
     super();
   }
 
+  //TODO: akwarium i zworc
   zwroc(x) {
     if (!(x instanceof Fish)) {
       throw new error("You must give a fish!");
     }
     super.addFish(x);
-    this.fishes = this.fishes.map((fish) => {
-      if (fish === x) return null;
-      return fish;
-    });
+    this.fishes = this.fishes
+      .map((fish) => {
+        if (fish === x) return null;
+        return fish;
+      })
+      .filter((el) => el !== null);
   }
 }
