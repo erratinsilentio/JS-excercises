@@ -15,6 +15,7 @@ Zapoznaj się z [API](https://jsonplaceholder.typicode.com/) i pobierz z API htt
 ## Zadanie 4
 
 Pobierz dane z endpointu https://restcountries.com/v3.1/all a następnie wykonaj operacje:
+
 - [ ] policz ile krajów ma walutę euro,
 - [ ] znajdź kraj bez stolicy,
 - [ ] pogrupuj nazwy krajów według kontynentu,
