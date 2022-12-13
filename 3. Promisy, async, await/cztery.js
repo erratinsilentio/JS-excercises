@@ -3,41 +3,127 @@ const getData = async () => {
   const data = await json.json();
   console.log(data);
 
-  // - [ ] policz ile krajów ma walutę euro
+  // - [ x ] policz ile krajów ma walutę euro
   // filter i reduce
 
-  const currencies = data.map((item) => {
-    if (item.currencies == "EUR") {
-      return item;
-    } else {
-      return null;
-    }
-  });
-  console.log(currencies);
+  const euro = data
+    .filter((item) => item.currencies)
+    .filter((country) => country.currencies.EUR).length;
 
-  // - [ ] znajdź kraj bez stolicy,
+  // - [ x ] znajdź kraj bez stolicy,
   // filter
+  let noCapital = data.filter((item) => !item.capital);
+  // - [ x ] pogrupuj nazwy krajów według kontynentu,
+  const africa = data.filter((item) => item.continents == "Africa");
+  const europe = data.filter((item) => item.continents == "Europe");
+  const oceania = data.filter((item) => item.continents == "Oceania");
+  const asia = data.filter((item) => item.continents == "Asia");
+  const southAmerica = data.filter(
+    (item) => item.continents == "South America"
+  );
+  const northAmerica = data.filter(
+    (item) => item.continents == "North America"
+  );
 
-  // - [ ] pogrupuj nazwy krajów według kontynentu,
-  // 3x sort
-
-  // - [ ] znajdź który kontynent ma najwięcej, a który najmniej państw,
+  // - [ x ] znajdź który kontynent ma najwięcej, a który najmniej państw,
   // reduce do poprzednich tablic
+  const countriesArray = [
+    africa,
+    europe,
+    oceania,
+    asia,
+    southAmerica,
+    northAmerica,
+  ];
+  const mostCountries = countriesArray.reduce((prev, current) =>
+    prev.length > current.length ? prev : current
+  );
 
-  // - [ ] zsumuj popuacje krajów na danych kontynentach,
+  // - [ x ] zsumuj popuacje krajów na danych kontynentach,
   // reduce do poprzednich tablic
+  africaPopulation = africa.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
+  asiaPopulation = asia.reduce((prev, current) => prev + current.population, 0);
+  oceaniaPopulation = oceania.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
+  oceaniaPopulation = oceania.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
+  europePopulation = europe.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
+  northAmericaPopulation = northAmerica.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
+  southAmericaPopulation = southAmerica.reduce(
+    (prev, current) => prev + current.population,
+    0
+  );
 
-  // - [ ] zsumuj powierzchnie krajów na danych kontynentach,
+  // - [ x ] zsumuj powierzchnie krajów na danych kontynentach,
   // reduce do poprzednich tablic
+  africaArea = africa.reduce((prev, current) => prev + current.population, 0);
+  asiaArea = asia.reduce((prev, current) => prev + current.area, 0);
+  oceaniaArea = oceania.reduce((prev, current) => prev + current.area, 0);
+  europeArea = europe.reduce((prev, current) => prev + current.area, 0);
+  northAmericaArea = northAmerica.reduce(
+    (prev, current) => prev + current.area,
+    0
+  );
+  southAmericaArea = southAmerica.reduce(
+    (prev, current) => prev + current.area,
+    0
+  );
 
-  // - [ ] wyswietl nazwy kontynentow o najwiekszej i najmiejszej powierzchni,
-  // filter
+  // - [ x ] wyswietl nazwy kontynentow o najwiekszej i najmiejszej powierzchni,
 
-  // - [ ] wyswietl nazwy kontynentow o najwiekszej i najmniejszej populacji,
-  // filter
+  const areas = [
+    { name: "africa", area: africaArea },
+    { name: "asia", area: asiaArea },
+    { name: "oceania", area: oceaniaArea },
+    { name: "europe", area: europeArea },
+    { name: "north america", area: northAmericaArea },
+    { name: "south america", area: southAmericaArea },
+  ];
 
-  // - [ ] posortuj waluty alfabetycznie,
+  const areasSorted = areas.sort((a, b) => a.area - b.area);
+
+  const smallestArea = areasSorted[0].name;
+  const largestArea = areasSorted[areasSorted.length - 1].name;
+
+  console.log(smallestArea);
+  console.log(largestArea);
+
+  // - [ x ] wyswietl nazwy kontynentow o najwiekszej i najmniejszej populacji,
+  // reduce
+  const populations = [
+    { name: "africa", population: africaPopulation },
+    { name: "asia", population: asiaPopulation },
+    { name: "oceania", population: oceaniaPopulation },
+    { name: "europe", population: europePopulation },
+    { name: "north america", population: northAmericaPopulation },
+    { name: "south america", population: southAmericaPopulation },
+  ];
+
+  populationsSorted = populations.sort((a, b) => a.population - b.population);
+
+  const smallestPopulation = populationsSorted[0].name;
+  const highestPopulation =
+    populationsSorted[populationsSorted.length - 1].name;
+
+  // - [ x ] posortuj waluty alfabetycznie,
   // map i sort
+  const currencies = data
+    .filter((item) => item.currencies)
+    .map((country) => Object.keys(country.currencies))
+    .sort();
 };
 
 getData();
