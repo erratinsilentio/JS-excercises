@@ -17,4 +17,4 @@ const obietnica = async (data) => {
   });
 };
 
-obietnica(12);
+// obietnica(12);
