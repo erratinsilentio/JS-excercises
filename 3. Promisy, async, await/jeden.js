@@ -1,18 +1,20 @@
 const obietnica = async (data) => {
-  if (typeof data === "number") {
-    setTimeout(() => {
-      console.log("hello");
-    }, "2000");
-    return;
-  }
+  return new Promise((resolve, reject) => {
+    if (typeof data === "number") {
+      setTimeout(() => {
+        resolve("hello");
+      }, "2000");
+      return;
+    }
 
-  if (typeof data === "string") {
-    setTimeout(() => {
-      console.log("test");
-    }, "1000");
-    return;
-  }
-  throw new error("Data should be either number or a string!");
+    if (typeof data === "string") {
+      setTimeout(() => {
+        resolve("test");
+      }, "1000");
+      return;
+    }
+    reject(new error("Data should be either number or a string!"));
+  });
 };
 
-obietnica(true);
+obietnica(12);
