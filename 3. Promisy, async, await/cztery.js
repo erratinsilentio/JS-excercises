@@ -9,7 +9,7 @@ const getData = async () => {
     .filter((country) => country.currencies.EUR).length;
 
   // - [ x ] znajdź kraj bez stolicy,
-  let noCapital = data.filter((item) => !item.capital);
+  const noCapital = data.filter((item) => !item.capital);
 
   // - [ x ] pogrupuj nazwy krajów według kontynentu,
   const africa = data.filter((item) => item.continents == "Africa");
