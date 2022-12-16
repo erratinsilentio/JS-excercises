@@ -37,42 +37,39 @@ const getData = async () => {
   );
 
   // - [ x ] zsumuj popuacje krajów na danych kontynentach,
-  africaPopulation = africa.reduce(
+  const  africaPopulation = africa.reduce(
     (prev, current) => prev + current.population,
     0
   );
-  asiaPopulation = asia.reduce((prev, current) => prev + current.population, 0);
-  oceaniaPopulation = oceania.reduce(
+  const asiaPopulation = asia.reduce((prev, current) => prev + current.population, 0);
+  const oceaniaPopulation = oceania.reduce(
+      (prev, current) => prev + current.population,
+    0
+  );
+   
+  const europePopulation = europe.reduce(
     (prev, current) => prev + current.population,
     0
   );
-  oceaniaPopulation = oceania.reduce(
+  const northAmericaPopulation = northAmerica.reduce(
     (prev, current) => prev + current.population,
     0
   );
-  europePopulation = europe.reduce(
-    (prev, current) => prev + current.population,
-    0
-  );
-  northAmericaPopulation = northAmerica.reduce(
-    (prev, current) => prev + current.population,
-    0
-  );
-  southAmericaPopulation = southAmerica.reduce(
+  const southAmericaPopulation = southAmerica.reduce(
     (prev, current) => prev + current.population,
     0
   );
 
   // - [ x ] zsumuj powierzchnie krajów na danych kontynentach,
-  africaArea = africa.reduce((prev, current) => prev + current.area, 0);
-  asiaArea = asia.reduce((prev, current) => prev + current.area, 0);
-  oceaniaArea = oceania.reduce((prev, current) => prev + current.area, 0);
-  europeArea = europe.reduce((prev, current) => prev + current.area, 0);
-  northAmericaArea = northAmerica.reduce(
+  const africaArea = africa.reduce((prev, current) => prev + current.area, 0);
+  const asiaArea = asia.reduce((prev, current) => prev + current.area, 0);
+  const oceaniaArea = oceania.reduce((prev, current) => prev + current.area, 0);
+  const europeArea = europe.reduce((prev, current) => prev + current.area, 0);
+  const northAmericaArea = northAmerica.reduce(
     (prev, current) => prev + current.area,
     0
   );
-  southAmericaArea = southAmerica.reduce(
+  const southAmericaArea = southAmerica.reduce(
     (prev, current) => prev + current.area,
     0
   );
